@@ -12,7 +12,20 @@
           "package_name": "com.example.hanaparal"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "465527656248-l8gv30n8e3v4a50p857gr7vg31al4vem.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hanaparal",
+            "certificate_hash": "4e89c4884c6b3117fded6113ca1369bf90498ce7"
+          }
+        },
+        {
+          "client_id": "465527656248-u7mvjftneh31dgv83j5kvpsg6ocpr7qn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDuJ6Ccxm-6DW9cQGC73BEPLuML-GMF3h0"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "465527656248-u7mvjftneh31dgv83j5kvpsg6ocpr7qn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
