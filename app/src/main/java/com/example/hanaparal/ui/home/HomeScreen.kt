@@ -107,7 +107,7 @@ fun HomeScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             if (isLoading && userProfile == null) {
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
@@ -152,7 +152,7 @@ fun HomeScreen(
                                     color = Color.Black
                                 )
                                 Text(
-                                    text = "Find your buddies",
+                                    text = "Find people to study with",
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = Color.Gray
                                 )

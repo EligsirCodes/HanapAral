@@ -92,7 +92,7 @@ fun GroupListScreen(
                         color = Color.DarkGray
                     )
                     Text(
-                        if (canCreate) "Be the first to create one!" else "Creation is currently limited.",
+                        if (canCreate) "Create your Study Group" else "Creation has been disabled.",
                         style = MaterialTheme.typography.bodyMedium,
                         color = Color.Gray
                     )

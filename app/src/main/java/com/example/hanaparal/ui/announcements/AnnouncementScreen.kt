@@ -65,7 +65,7 @@ fun AnnouncementScreen(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Notify your Study Buddies",
+                    text = "Notify your Group",
                     style = MaterialTheme.typography.labelLarge,
                     color = primaryGreen,
                     fontWeight = FontWeight.Bold,
