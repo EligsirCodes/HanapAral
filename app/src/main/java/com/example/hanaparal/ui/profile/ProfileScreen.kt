@@ -189,8 +189,7 @@ fun ProfileScreen(
                                     biometricManager.showBiometricPrompt(
                                         onSuccess = { onSaveAction() },
                                         onError = { error ->
-                                            Toast.makeText(context, error, Toast.LENGTH_SHORT)
-                                                .show()
+                                            Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
                                         }
                                     )
                                 } else {
@@ -217,4 +216,3 @@ fun ProfileScreen(
         }
     }
 }
-//
