@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.FragmentActivity
-import com.google.firebase.auth.FirebaseAuthK
+import com.google.firebase.auth.FirebaseAuth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -101,3 +101,118 @@ fun ProfileScreen(
                     )
 
                     Spacer(modifier = Modifier.height(20.dp))
+
+                    OutlinedTextField(
+                        value = viewModel.name,
+                        onValueChange = { viewModel.name = it },
+                        label = { Text("Full Name") },
+                        placeholder = { Text("e.g. John Doe") },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        enabled = !isLoading,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = primaryGreen,
+                            focusedLabelColor = primaryGreen
+                        ),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    OutlinedTextField(
+                        value = viewModel.course,
+                        onValueChange = { viewModel.course = it },
+                        label = { Text("Course") },
+                        placeholder = { Text("e.g. BSIT") },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        enabled = !isLoading,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = primaryGreen,
+                            focusedLabelColor = primaryGreen
+                        ),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    ExposedDropdownMenuBox(
+                        expanded = yearExpanded,
+                        onExpandedChange = { if (!isLoading) yearExpanded = !yearExpanded }
+                    ) {
+                        OutlinedTextField(
+                            value = viewModel.year,
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text("Year Level") },
+                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = yearExpanded) },
+                            modifier = Modifier.menuAnchor().fillMaxWidth(),
+                            enabled = !isLoading,
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = primaryGreen,
+                                focusedLabelColor = primaryGreen
+                            ),
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                        ExposedDropdownMenu(
+                            expanded = yearExpanded,
+                            onDismissRequest = { yearExpanded = false }
+                        ) {
+                            yearLevels.forEach { year ->
+                                DropdownMenuItem(
+                                    text = { Text(year) },
+                                    onClick = {
+                                        viewModel.year = year
+                                        yearExpanded = false
+                                    }
+                                )
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(32.dp))
+
+                    if (isLoading) {
+                        CircularProgressIndicator(color = primaryGreen)
+                    } else {
+                        Button(
+                            onClick = {
+                                val onSaveAction = {
+                                    user?.let {
+                                        viewModel.saveProfile(it.uid, it.email ?: "") { success ->
+                                            if (success) onProfileSaved()
+                                        }
+                                    }
+                                }
+
+                                if (biometricManager != null && biometricManager.isBiometricAvailable()) {
+                                    biometricManager.showBiometricPrompt(
+                                        onSuccess = { onSaveAction() },
+                                        onError = { error ->
+                                            Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+                                        }
+                                    )
+                                } else {
+                                    onSaveAction()
+                                }
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(56.dp),
+                            enabled = viewModel.name.isNotBlank() &&
+                                    viewModel.course.isNotBlank() &&
+                                    viewModel.year.isNotBlank(),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = primaryGreen,
+                                contentColor = pureWhite
+                            ),
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Text("Save and Continue", style = MaterialTheme.typography.titleMedium)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
