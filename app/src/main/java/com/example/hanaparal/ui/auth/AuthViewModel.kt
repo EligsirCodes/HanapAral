@@ -13,5 +13,16 @@ class AuthViewModel(
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
     val currentUser get() = repository.currentUser
 
+    fun signInWithFirebase(credential: AuthCredential, onResult: (Boolean) -> Unit) {
+        _isLoading.value = true
 
+        repository.signInWithCredential(credential) { success ->
+            _isLoading.value = false
+            onResult(success)
+        }
+    }
+
+    fun signOut() {
+        repository.signOut()
+    }
 }
